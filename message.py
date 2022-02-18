@@ -33,9 +33,9 @@ class AutoSearch:
     def elementSearch(self):
         for x in range(0, 999):
             print("please tell me what product you are looking for")
-            print("You can speak after hearing the b sound")
+            print("You can speak after the beep")
             qSound = "please tell me what product you are looking for"
-            qSound2 = "You can speak after hearing the b sound"
+            qSound2 = "You can speak after the beep"
             self.prodSound(qSound)
             self.prodSound(qSound2)
             #search = input("What product do you want to see?")
@@ -54,8 +54,8 @@ class AutoSearch:
             playsound("Audio/ann2.mp3")
             os.remove("Audio/ann2.mp3")
 
-            print("Please say yes or no after hearing the b sound")
-            ann3 = gtts.gTTS("Please say yes or no after hearing the b sound")
+            print("Please say yes or no after the beep")
+            ann3 = gtts.gTTS("Please say YES or NO after the beep")
             ann3.save("Audio/ann3.mp3")
             playsound("Audio/ann3.mp3")
             os.remove("Audio/ann3.mp3")

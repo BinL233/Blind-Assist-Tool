@@ -12,5 +12,5 @@ _Building now_
 
 ## Bug
 
-1. Costco product searching function
+1. Costco product searching function.
 2. Websites will be closed after the function finishs.

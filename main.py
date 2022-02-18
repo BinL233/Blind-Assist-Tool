@@ -5,9 +5,9 @@ import os
 
 def main():
     print("please tell me the website you want to view")
-    print("You can speak after hearing the sound")
+    print("You can speak after the beep")
     qSound = "Please tell me the website you want to view"
-    qSound2 = "You can speak after the sound"
+    qSound2 = "You can speak after the beep"
     AutoSearch.webSound(qSound)
     AutoSearch.webSound(qSound2)
     #browser = input("what website do you want to see(ebay or amazon)?")
