@@ -12,4 +12,4 @@ _Building now_
 
 ## Error
 
-1. Costco search function
+1. Costco product searching function
