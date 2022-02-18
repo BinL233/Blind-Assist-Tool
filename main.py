@@ -17,6 +17,8 @@ def main():
         AutoSearch.amazon()
     if data.lower() == "ebay":
         AutoSearch.ebay()
+    if data.lower() == "costco":
+        AutoSearch.costco()
     else:
         AutoSearch.error()
         main()
