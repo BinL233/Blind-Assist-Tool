@@ -83,6 +83,7 @@ class AutoSearch:
                 os.remove("Audio/ann4.mp3")
 
     def searchSuccess(self):
+        playsound("Audio/Success.mp3")
         search_success = gtts.gTTS(self.search + " search success!")
         search_success.save("Audio/search_success.mp3")
         playsound("Audio/search_success.mp3")
