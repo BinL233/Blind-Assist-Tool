@@ -135,6 +135,10 @@ class AutoSearch:
         fill_in.send_keys(self.search)
         button = web.find_element_by_id("gh-btn")
         button.click()
+        
+        # Search success audio
+        self.searchSuccess()
+        time.sleep(600)
 
     def costco(self):
 

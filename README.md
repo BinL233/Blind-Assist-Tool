@@ -10,6 +10,7 @@ _Building now_
 4. Automatically enter values.
 
 
-## Error
+## Bug
 
 1. Costco product searching function
+2. Websites will be closed after the function finishs.
