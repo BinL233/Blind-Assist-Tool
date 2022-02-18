@@ -1,8 +1,8 @@
 # Blind-Assist-Tool
 
-Building now
+*Building now*
 
-##Functions
+## Functions
 1. Automatically open web pages.
 2. Sound recognition.
 3. Voice broadcast.
