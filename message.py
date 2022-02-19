@@ -31,28 +31,29 @@ class AutoSearch:
         os.remove("Audio/error.mp3")
 
     def elementSearch(self):
+        print("please tell me what product you are looking for")
+        print("You can speak after the beep")
+        qSound = "please tell me what product you are looking for"
+        qSound2 = "You can speak after the beep"
+        self.prodSound(qSound)
+        self.prodSound(qSound2)
+        #search = input("What product do you want to see?")
+
+        # Record
+        self.search = Record.recordAudio()
+
+        if self.search == '':
+            self.error()
+
+            return self.elementSearch()
+
+        print("You are looking for " + self.search + ", right?")
+        ann2 = gtts.gTTS("You are looking for " + self.search + ", right?")
+        ann2.save("Audio/ann2.mp3")
+        playsound("Audio/ann2.mp3")
+        os.remove("Audio/ann2.mp3")
+                
         for x in range(0, 999):
-            print("please tell me what product you are looking for")
-            print("You can speak after the beep")
-            qSound = "please tell me what product you are looking for"
-            qSound2 = "You can speak after the beep"
-            self.prodSound(qSound)
-            self.prodSound(qSound2)
-            #search = input("What product do you want to see?")
-
-            # Record
-            self.search = Record.recordAudio()
-
-            if self.search == '':
-                self.error()
-
-                return self.elementSearch()
-
-            print("You are looking for " + self.search + ", right?")
-            ann2 = gtts.gTTS("You are looking for " + self.search + ", right?")
-            ann2.save("Audio/ann2.mp3")
-            playsound("Audio/ann2.mp3")
-            os.remove("Audio/ann2.mp3")
 
             print("Please say yes or no after the beep")
             ann3 = gtts.gTTS("Please say YES or NO after the beep")
