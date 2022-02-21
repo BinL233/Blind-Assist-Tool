@@ -27,7 +27,8 @@ def main():
 
 if __name__ == '__main__':
 
-    os.system("pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl")
+    #Install pyaudio wheel
+    #os.system("pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl")
 
     AutoSearch = message.AutoSearch()
 
