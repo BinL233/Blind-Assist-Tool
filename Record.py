@@ -9,7 +9,9 @@ def recordAudio():
         audio = r.listen(source)
     data = ""
     try:
+        print('1')
         data = r.recognize_google(audio)
+        print('2')
         print("You said: " + data)
     except sr.UnknownValueError:
         print("Speech Recognition could not understand audio")
