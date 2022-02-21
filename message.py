@@ -52,7 +52,7 @@ class AutoSearch:
         ann2.save("Audio/ann2.mp3")
         playsound("Audio/ann2.mp3")
         os.remove("Audio/ann2.mp3")
-                
+
         for x in range(0, 999):
 
             print("Please say yes or no after the beep")
@@ -136,17 +136,17 @@ class AutoSearch:
         fill_in.send_keys(self.search)
         button = web.find_element_by_id("gh-btn")
         button.click()
-        
+
         # Search success audio
         self.searchSuccess()
         time.sleep(600)
 
-    def costco(self):
+    def target(self):
 
         self.elementSearch()
 
         web = webdriver.Chrome()
-        web.get("https://www.costco.com/")
+        web.get("https://www.target.com/")
         x = 500
         while x < 4500:
             web.execute_script("window.scrollTo(0," + str(x) + ")")
@@ -154,9 +154,9 @@ class AutoSearch:
             time.sleep(0.05)
 
         fill_in = web.find_element_by_xpath(
-            "/html/body/header/div[2]/div/div/div/div[2]/div/div[3]/div/form/div[2]/span[2]/input[2]")
+            "/html/body/div[1]/div/div[3]/div[2]/nav/div/form/input")
         fill_in.send_keys(self.search)
-        button = web.find_element_by_class_name("btn search-ico-button")
+        button = web.find_element_by_id("search")
         button.click()
 
         # Search success audio

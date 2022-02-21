@@ -13,13 +13,13 @@ def main():
     #browser = input("what website do you want to see(ebay or amazon)?")
     data = Record.recordAudio()
 
-    #Find website from sound file
+    # Find website from sound file
     if data.lower() == "amazon":
         AutoSearch.amazon()
     if data.lower() == "ebay":
         AutoSearch.ebay()
-    if data.lower() == "costco":
-        AutoSearch.costco()
+    if data.lower() == "target":
+        AutoSearch.target()
     else:
         AutoSearch.error()
         main()
@@ -27,8 +27,8 @@ def main():
 
 if __name__ == '__main__':
     AutoSearch = message.AutoSearch()
-    
-    #Check whether gtts mp3 files are not exist
+
+    # Check whether gtts mp3 files are not exist
     if os.path.exists("Audio/web.mp3") == True:
         os.remove("Audio/web.mp3")
 
