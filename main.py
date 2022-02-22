@@ -57,4 +57,7 @@ if __name__ == '__main__':
     if os.path.exists("AUdio/search_success.mp3") == True:
         os.remove("Audio/search_success.mp3")
 
+    if os.path.exists("AUdio/loginConf.mp3") == True:
+        os.remove("Audio/loginCOnf.mp3")
+
     main()

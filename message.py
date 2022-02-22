@@ -6,6 +6,21 @@ from playsound import playsound
 import os
 import Record
 
+class logIn:
+    
+    def __init__(self):
+        pass
+
+    def loginConfirmation(self):
+        print("Do you wanna to log in to this site")
+        loginConf = gtts.gTTS("Do you wanna to log in to this site")
+        loginConf.save("Audio/loginConf.mp3")
+        playsound("Audio/loginConf.mp3")
+        os.remove("Audio/loginConf.mp3")
+
+    def keyboardAudio(self,key):
+        pass
+
 
 class AutoSearch:
 
