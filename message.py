@@ -19,6 +19,7 @@ class logIn:
         os.remove("Audio/loginConf.mp3")
 
     def keyboardAudio(self,key):
+        #Read the input of keybeard.
         pass
 
 
