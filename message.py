@@ -165,6 +165,28 @@ class AutoSearch:
         playsound("Audio/error.mp3")
         os.remove("Audio/error.mp3")
 
+    def addOrCheck(self):
+        conf = gtts.gTTS("You want to add to your cart or check out directly")
+        conf = gtts.gTTS("Please say add to cart or check out after the beep")        
+        conf.save("Audio/conf.mp3")
+        playsound("Audio/conf.mp3")
+        os.remove("Audio/conf.mp3")
+
+        ans = Record.recordAudio()
+        
+        if ans == "Add to cart":
+            self.addToCart()
+            self.addToCartScs()
+
+        elif ans == "Check out":
+            self.checkOut()
+            self.checkOutScs()
+            
+        
+        else:
+            self.error()
+            return self.addOrCheck()
+
     def elementSearch(self):
         print("please tell me what product you are looking for")
         print("You can speak after the beep")
@@ -269,13 +291,9 @@ class AutoSearch:
             "proceed-to-checkout-action")
         self.place_your_order = web.find_elements_by_class_name(
             "a-button-text place-your-order-button")
-        
-        self.addToCart()
-        self.addToCartScs()
-        self.goToCart()
-        self.goToCartScs()
-        self.checkOut()
-        self.checkOutScs()
+
+        self.addOrCheck()
+
         time.sleep(600)
 
     def ebay(self):
