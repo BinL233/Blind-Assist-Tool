@@ -6,8 +6,9 @@ from playsound import playsound
 import os
 import Record
 
+
 class logIn:
-    
+
     def __init__(self):
         pass
 
@@ -18,8 +19,8 @@ class logIn:
         playsound("Audio/loginConf.mp3")
         os.remove("Audio/loginConf.mp3")
 
-    def keyboardAudio(self,key):
-        #Read the input of keybeard.
+    def keyboardAudio(self, key):
+        # Read the input of keybeard.
         pass
 
 
@@ -112,6 +113,13 @@ class AutoSearch:
         web = webdriver.Chrome()
         web.get("https://www.amazon.com/")
 
+        # If the user wants to login first
+        log_in = web.find_element_by_id("nav-link-accountList")
+        log_in.click()
+        time.sleep(1)
+        # the audio said "You are ready to log in, please click enter after you done
+        # At time time we will have a feature that it says what the user input is
+
         x = 500
         while x < 4500:
             web.execute_script("window.scrollTo(0," + str(x) + ")")
@@ -134,6 +142,22 @@ class AutoSearch:
         customer_review = web.find_element_by_id("s-result-sort-select_3")
         customer_review.click()
         time.sleep(600)
+
+        # add things to cart and checkout function
+        go_to_cart = web.find_element_by_id("nav-cart-count-container")
+        add_to_cart = web.find_element_by_id("add-to-cart-button")
+        proceed_to_checkout = web.find_element_by_id(
+            "proceed-to-checkout-action")
+        place_your_order = web.find_elements_by_class_name(
+            "a-button-text place-your-order-button")
+        if  # the user wants to add to cart:
+        add_to_cart.click()
+        if  # the user wants to checkout:
+        go_to_cart.click()
+        time.sleep(0.5)
+        proceed_to_checkout.click()
+        time.sleep(0.5)
+        place_your_order.click()
 
     def ebay(self):
 
