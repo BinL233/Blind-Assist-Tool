@@ -5,12 +5,22 @@ import gtts
 from playsound import playsound
 import os
 import Record
+from pynput.keyboard import Key, Controller
+
+class WebCrawler:
+    
+    def __init__(self):
+        pass
+
+    def productTitle():
+        pass
 
 
 class logIn:
 
     def __init__(self):
         pass
+        
 
     def loginConfSound(self):
         print("Do you wanna to log in to this site")
@@ -42,6 +52,11 @@ class AutoSearch:
 
     def __init__(self):
         self.search = None
+
+    def autoType(self, input):
+        keyboard = Controller()
+        keyboard.press(input)
+
 
     def webSound(self, q):
         web = gtts.gTTS(q)
