@@ -6,6 +6,7 @@ from playsound import playsound
 import os
 import Record
 from pynput.keyboard import Key, Controller
+import pyautogui
 
 class WebCrawler:
     
@@ -56,6 +57,10 @@ class AutoSearch:
     def autoType(self, input):
         keyboard = Controller()
         keyboard.press(input)
+
+    def autoMouse(self, x, y):
+        pyautogui.move(x, y)
+        pyautogui.click()
 
 
     def webSound(self, q):
