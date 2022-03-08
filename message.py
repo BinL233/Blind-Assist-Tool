@@ -8,8 +8,9 @@ import Record
 from pynput.keyboard import Key, Controller
 import pyautogui
 
+
 class WebCrawler:
-    
+
     def __init__(self):
         pass
 
@@ -21,7 +22,6 @@ class logIn:
 
     def __init__(self):
         pass
-        
 
     def loginConfSound(self):
         print("Do you wanna to log in to this site")
@@ -62,7 +62,6 @@ class AutoSearch:
         pyautogui.move(x, y)
         pyautogui.click()
 
-
     def webSound(self, q):
         web = gtts.gTTS(q)
         web.save("Audio/web.mp3")
@@ -76,17 +75,18 @@ class AutoSearch:
         os.remove("Audio/prod.mp3")
 
     def addToCart(self):
-        atc = gtts.gTTS("Do you want to add this product to the cart? Please say yes or no after the beep")
+        atc = gtts.gTTS(
+            "Do you want to add this product to the cart? Please say yes or no after the beep")
         atc.save("Audio/atc.mp3")
         playsound("Audio/atc.mp3")
         os.remove("Audio/atc.mp3")
-        
-        ans = Record.recordAudio() 
-        if ans == "Yes": # the user wants to add to cart:
+
+        ans = Record.recordAudio()
+        if ans == "Yes":  # the user wants to add to cart:
             self.add_to_cart.click()
 
         elif ans == "No":
-            self.cancelScs()         
+            self.cancelScs()
 
         else:
             self.error()
@@ -100,12 +100,13 @@ class AutoSearch:
         os.remove("Audio/atcS.mp3")
 
     def checkOut(self):
-        checkOut = gtts.gTTS("Do you want to check out? Please say yes or no after the beep")
+        checkOut = gtts.gTTS(
+            "Do you want to check out? Please say yes or no after the beep")
         checkOut.save("Audio/checkOut.mp3")
         playsound("Audio/checkOut.mp3")
         os.remove("Audio/checkOut.mp3")
 
-        ans = Record.recordAudio() 
+        ans = Record.recordAudio()
         if ans == "Yes":
             if self.checkOutConfirm() == True:
                 self.go_to_cart.click()
@@ -118,7 +119,7 @@ class AutoSearch:
                 self.cancelScs()
 
         elif ans == "No":
-            self.cancelScs()         
+            self.cancelScs()
 
         else:
             self.error()
@@ -132,35 +133,37 @@ class AutoSearch:
         os.remove("Audio/checkOutScs.mp3")
 
     def checkOutConfirm(self):
-        checkOutConf = gtts.gTTS("Are you sure you want to check out? Please say yes or no after the beep")
+        checkOutConf = gtts.gTTS(
+            "Are you sure you want to check out? Please say yes or no after the beep")
         checkOutConf.save("Audio/checkOutConf.mp3")
         playsound("Audio/checkOutConf.mp3")
         os.remove("Audio/checkOutConf.mp3")
 
         ans = Record.recordAudio()
-        
+
         if ans == "Yes":
             return True
 
         elif ans == "No":
             return False
-        
+
         else:
             self.error()
             return self.checkOutConfirm()
 
     def goToCart(self):
-        goToCart = gtts.gTTS("Do you want to go to your cart? Please say yes or no after the beep")
+        goToCart = gtts.gTTS(
+            "Do you want to go to your cart? Please say yes or no after the beep")
         goToCart.save("Audio/goToCart.mp3")
         playsound("Audio/goToCart.mp3")
         os.remove("Audio/goToCart.mp3")
 
-        ans = Record.recordAudio() 
-        if ans == "Yes": 
+        ans = Record.recordAudio()
+        if ans == "Yes":
             self.go_to_cart.click()
 
         elif ans == "No":
-            self.cancelScs()         
+            self.cancelScs()
 
         else:
             self.error()
@@ -176,8 +179,7 @@ class AutoSearch:
         cancel = gtts.gTTS("Cancel success")
         cancel.save("Audio/Cancel.mp3")
         playsound("Audio/Cancel.mp3")
-        os.remove("Audio/Cancel.mp3")   
-
+        os.remove("Audio/Cancel.mp3")
 
     def error(self):
         error = gtts.gTTS("I'm not sure I understand. Please say that again.")
@@ -187,13 +189,13 @@ class AutoSearch:
 
     def addOrCheck(self):
         conf = gtts.gTTS("You want to add to your cart or check out directly")
-        conf = gtts.gTTS("Please say add to cart or check out after the beep")        
+        conf = gtts.gTTS("Please say add to cart or check out after the beep")
         conf.save("Audio/conf.mp3")
         playsound("Audio/conf.mp3")
         os.remove("Audio/conf.mp3")
 
         ans = Record.recordAudio()
-        
+
         if ans == "Add to cart":
             self.addToCart()
             self.addToCartScs()
@@ -201,8 +203,7 @@ class AutoSearch:
         elif ans == "Check out":
             self.checkOut()
             self.checkOutScs()
-            
-        
+
         else:
             self.error()
             return self.addOrCheck()
@@ -267,10 +268,16 @@ class AutoSearch:
         playsound("Audio/search_success.mp3")
         os.remove("Audio/search_success.mp3")
 
+    def recommand(self):
+        web = webdriver.Chrome()
+        web.get("https://www.google.com/")
+        fill_in = web.find_element_by_xpath(
+            "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
+        fill_in.send_keys(self.search)
+
     def amazon(self):
         self.elementSearch()
         login = logIn()
-
         web = webdriver.Chrome()
         web.get("https://www.amazon.com/")
 
