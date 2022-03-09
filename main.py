@@ -4,7 +4,7 @@ import os
 
 
 def main():
-    print("Tell me the website after the beep")
+    print("\nTell me the website after the beep")
     qSound = "Tell me the website after the beep"
     AutoSearch.webSound(qSound)
     #browser = input("what website do you want to see(ebay or amazon)?")

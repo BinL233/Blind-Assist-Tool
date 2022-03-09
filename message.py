@@ -26,7 +26,7 @@ class logIn:
         pass
 
     def loginConfSound(self):
-        print("Do you wanna to login?")
+        print("\nDo you wanna to login?")
         loginConf = gtts.gTTS("Do you wanna to login?")
         loginConf.save("Audio/loginConf.mp3")
         playsound("Audio/loginConf.mp3")
@@ -77,6 +77,7 @@ class AutoSearch:
         os.remove("Audio/prod.mp3")
 
     def addToCart(self):
+        print("\nDo you want to add it to cart?")
         atc = gtts.gTTS(
             "Do you want to add it to cart?")
         atc.save("Audio/atc.mp3")
@@ -96,12 +97,14 @@ class AutoSearch:
 
     def addToCartScs(self):
         self.searchSuccess()
+        print("\nAdd to cart successfully")
         atcS = gtts.gTTS("Add to cart successfully")
         atcS.save("Audio/atcS.mp3")
         playsound("Audio/atcS.mp3")
         os.remove("Audio/atcS.mp3")
 
     def checkOut(self):
+        print("\nDo you want to check out?")
         checkOut = gtts.gTTS(
             "Do you want to check out?")
         checkOut.save("Audio/checkOut.mp3")
@@ -129,12 +132,14 @@ class AutoSearch:
 
     def checkOutScs(self):
         self.searchSuccess()
+        print("\nCheck out successfully")
         checkOutScs = gtts.gTTS("Check out successfully")
         checkOutScs.save("Audio/checkOutScs.mp3")
         playsound("Audio/checkOutScs.mp3")
         os.remove("Audio/checkOutScs.mp3")
 
     def checkOutConfirm(self):
+        print("\nAre you sure you want to check out?")
         checkOutConf = gtts.gTTS(
             "Are you sure you want to check out?")
         checkOutConf.save("Audio/checkOutConf.mp3")
@@ -154,6 +159,7 @@ class AutoSearch:
             return self.checkOutConfirm()
 
     def goToCart(self):
+        print("\nDo you want to go to your cart?")
         goToCart = gtts.gTTS(
             "Do you want to go to your cart?")
         goToCart.save("Audio/goToCart.mp3")
@@ -172,24 +178,28 @@ class AutoSearch:
             return self.goToCart()
 
     def goToCartScs(self):
+        print("\nGo to cart successfully")
         goToCartScs = gtts.gTTS("Go to cart successfully")
         goToCartScs.save("Audio/goToCartScs.mp3")
         playsound("Audio/goToCartScs.mp3")
         os.remove("Audio/goToCartScs.mp3")
 
     def cancelScs(self):
+        print("\nCancel success")
         cancel = gtts.gTTS("Cancel success")
         cancel.save("Audio/Cancel.mp3")
         playsound("Audio/Cancel.mp3")
         os.remove("Audio/Cancel.mp3")
 
     def error(self):
+        print("\nI'm not sure I understand. Please say that again.")
         error = gtts.gTTS("I'm not sure I understand. Please say that again.")
         error.save("Audio/error.mp3")
         playsound("Audio/error.mp3")
         os.remove("Audio/error.mp3")
 
     def addOrCheck(self):
+        print("\nDo you want to add to your cart or check out directly")
         conf = gtts.gTTS(
             "Do you want to add to your cart or check out directly")
         conf.save("Audio/conf.mp3")
@@ -211,7 +221,7 @@ class AutoSearch:
             return self.addOrCheck()
 
     def elementSearch(self):
-        print("Tell me the product after the beep")
+        print("\nTell me the product after the beep")
         qSound = "Tell me the product after the beep"
         self.prodSound(qSound)
         #search = input("What product do you want to see?")
@@ -224,7 +234,7 @@ class AutoSearch:
 
             return self.elementSearch()
 
-        print("You are looking for " + self.search + ", right?")
+        print("\nYou are looking for " + self.search + ", right?")
         ann2 = gtts.gTTS("You are looking for " + self.search + ", right?")
         ann2.save("Audio/ann2.mp3")
         playsound("Audio/ann2.mp3")
@@ -242,7 +252,7 @@ class AutoSearch:
 
             if ans == 'yes':
                 # Waiting audio
-                print("Okay...Give me one second")
+                print("\nOkay...Give me one second")
                 ann = gtts.gTTS("Okay...Give me one second")
                 ann.save("Audio/ann.mp3")
                 playsound("Audio/ann.mp3")
@@ -253,7 +263,7 @@ class AutoSearch:
                 return self.elementSearch()
 
             else:
-                print("Sorry, I did hear that. Could you repeat again?")
+                print("\nSorry, I did hear that. Could you repeat again?")
                 ann4 = gtts.gTTS(
                     "Sorry, I did hear that. Could you repeat again?")
                 ann4.save("Audio/ann4.mp3")
@@ -261,6 +271,8 @@ class AutoSearch:
                 os.remove("Audio/ann4.mp3")
 
     def searchSuccess(self):
+        output = "\n" + str(self.search) + " search success!"
+        print(output)
         playsound("Audio/Success.mp3")
         search_success = gtts.gTTS(self.search + " search success!")
         search_success.save("Audio/search_success.mp3")
@@ -268,6 +280,7 @@ class AutoSearch:
         os.remove("Audio/search_success.mp3")
 
     def recommand(self):
+        print("\nDo you want some recommandations?")
         recommand = gtts.gTTS("Do you want some recommandations?")
         recommand.save("Audio/recommand.mp3")
         playsound("Audio/recommand.mp3")
@@ -287,7 +300,11 @@ class AutoSearch:
             self.autoType(Key.enter)
 
         elif ans == 'no':
-            pass
+            print("\nOkay")
+            okay = gtts.gTTS("Okay")
+            okay.save("Audio/Okay.mp3")
+            playsound("Audio/Okay.mp3")
+            os.remove("Audio/Okay.mp3")
 
         else:
             self.error()
@@ -295,8 +312,8 @@ class AutoSearch:
 
     def amazon(self):
         self.elementSearch()
-        logiexen = logIn()
-        driver_path = "chromedriver."
+        login = logIn()
+        driver_path = "chromedriver.exe"
         chr_options = Options()
         chr_options.add_experimental_option("detach", True)
         chr_driver = webdriver.Chrome(driver_path, options=chr_options)
