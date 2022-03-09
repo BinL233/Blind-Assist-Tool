@@ -1,3 +1,4 @@
+from distutils.log import error
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -269,11 +270,26 @@ class AutoSearch:
         os.remove("Audio/search_success.mp3")
 
     def recommand(self):
-        web = webdriver.Chrome()
-        web.get("https://www.google.com/")
-        fill_in = web.find_element_by_xpath(
-            "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
-        fill_in.send_keys(self.search)
+        recommand = gtts.gTTS("Do you want some recommandations?")
+        recommand.save("Audio/recommand.mp3")
+        playsound("Audio/recommand.mp3")
+        os.remove("Audio/recommand.mp3")
+
+        ans = Record.recordAudio()
+
+        if ans == 'yes':
+            web = webdriver.Chrome()
+            web.get("https://www.google.com/")
+            fill_in = web.find_element_by_xpath(
+                "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
+            fill_in.send_keys(self.search)
+
+        elif ans == 'no':
+            pass
+
+        else:
+            self.error()
+            return recommand()
 
     def amazon(self):
         self.elementSearch()
@@ -304,6 +320,8 @@ class AutoSearch:
 
         # Search success audio
         self.searchSuccess()
+
+        self.recommand()
 
         sort = web.find_element_by_id("a-autoid-0-announce")
         sort.click()
