@@ -279,14 +279,14 @@ class AutoSearch:
         ans = Record.recordAudio()
 
         if ans == 'yes':
-            driver_path = "path/to/chromedriver"
+            driver_path = "chromedriver.exe"
             chr_options = Options()
             chr_options.add_experimental_option("detach", True)
             chr_driver = webdriver.Chrome(driver_path, options=chr_options)
             chr_driver.get("https://www.google.com/")
             fill_in = chr_driver.find_element_by_xpath(
                 "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
-            fill_in.send_keys('ps5')  # self.search)
+            fill_in.send_keys(self.search)
             self.autoType(Key.enter)
 
         elif ans == 'no':
