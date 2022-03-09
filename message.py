@@ -8,6 +8,7 @@ import os
 import Record
 from pynput.keyboard import Key, Controller
 import pyautogui
+from selenium.webdriver.chrome.options import Options
 
 
 class WebCrawler:
@@ -278,9 +279,12 @@ class AutoSearch:
         ans = Record.recordAudio()
 
         if ans == 'yes':
-            web = webdriver.Chrome()
-            web.get("https://www.google.com/")
-            fill_in = web.find_element_by_xpath(
+            driver_path = "path/to/chromedriver"
+            chr_options = Options()
+            chr_options.add_experimental_option("detach", True)
+            chr_driver = webdriver.Chrome(driver_path, options=chr_options)
+            chr_driver.get("https://www.google.com/")
+            fill_in = chr_driver.find_element_by_xpath(
                 "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
             fill_in.send_keys('ps5')  # self.search)
             self.autoType(Key.enter)
