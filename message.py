@@ -103,7 +103,7 @@ class AutoSearch:
 
     def checkOut(self):
         checkOut = gtts.gTTS(
-            "Do you want to check out? Please say yes or no after the beep")
+            "Do you want to check out?")
         checkOut.save("Audio/checkOut.mp3")
         playsound("Audio/checkOut.mp3")
         os.remove("Audio/checkOut.mp3")
@@ -136,7 +136,7 @@ class AutoSearch:
 
     def checkOutConfirm(self):
         checkOutConf = gtts.gTTS(
-            "Are you sure you want to check out? Please say yes or no after the beep")
+            "Are you sure you want to check out?")
         checkOutConf.save("Audio/checkOutConf.mp3")
         playsound("Audio/checkOutConf.mp3")
         os.remove("Audio/checkOutConf.mp3")
@@ -155,7 +155,7 @@ class AutoSearch:
 
     def goToCart(self):
         goToCart = gtts.gTTS(
-            "Do you want to go to your cart? Please say yes or no after the beep")
+            "Do you want to go to your cart?")
         goToCart.save("Audio/goToCart.mp3")
         playsound("Audio/goToCart.mp3")
         os.remove("Audio/goToCart.mp3")
@@ -190,8 +190,8 @@ class AutoSearch:
         os.remove("Audio/error.mp3")
 
     def addOrCheck(self):
-        conf = gtts.gTTS("You want to add to your cart or check out directly")
-        conf = gtts.gTTS("Please say add to cart or check out after the beep")
+        conf = gtts.gTTS(
+            "Do you want to add to your cart or check out directly")
         conf.save("Audio/conf.mp3")
         playsound("Audio/conf.mp3")
         os.remove("Audio/conf.mp3")
@@ -211,12 +211,9 @@ class AutoSearch:
             return self.addOrCheck()
 
     def elementSearch(self):
-        print("please tell me what product you are looking for")
-        print("You can speak after the beep")
-        qSound = "please tell me what product you are looking for"
-        qSound2 = "You can speak after the beep"
+        print("Tell me the product after the beep")
+        qSound = "Tell me the product after the beep"
         self.prodSound(qSound)
-        self.prodSound(qSound2)
         #search = input("What product do you want to see?")
 
         # Record
@@ -298,13 +295,16 @@ class AutoSearch:
 
     def amazon(self):
         self.elementSearch()
-        login = logIn()
-        web = webdriver.Chrome()
-        web.get("https://www.amazon.com/")
+        logiexen = logIn()
+        driver_path = "chromedriver."
+        chr_options = Options()
+        chr_options.add_experimental_option("detach", True)
+        chr_driver = webdriver.Chrome(driver_path, options=chr_options)
+        chr_driver.get("https://www.amazon.com/")
 
         # If the user wants to login first
         if login.loginConf == True:
-            log_in = web.find_element_by_id("nav-link-accountList")
+            log_in = chr_driver.find_element_by_id("nav-link-accountList")
             log_in.click()
             time.sleep(1)
         # the audio said "You are ready to log in, please click enter after you done
@@ -312,15 +312,15 @@ class AutoSearch:
 
         x = 500
         while x < 4500:
-            web.execute_script("window.scrollTo(0," + str(x) + ")")
+            chr_driver.execute_script("window.scrollTo(0," + str(x) + ")")
             x += 100
             time.sleep(0.05)
 
-        fill_in = web.find_element_by_xpath(
+        fill_in = chr_driver.find_element_by_xpath(
             "/html/body/div[1]/header/div/div[1]/div[2]/div/form/div[2]/div[1]/input")
         fill_in.send_keys(self.search)
         time.sleep(1)
-        button = web.find_element_by_id("nav-search-submit-button")
+        button = chr_driver.find_element_by_id("nav-search-submit-button")
         button.click()
 
         # Search success audio
@@ -328,23 +328,23 @@ class AutoSearch:
 
         self.recommand()
 
-        sort = web.find_element_by_id("a-autoid-0-announce")
+        sort = chr_driver.find_element_by_id("a-autoid-0-announce")
         sort.click()
         time.sleep(1)
-        customer_review = web.find_element_by_id("s-result-sort-select_3")
+        customer_review = chr_driver.find_element_by_id(
+            "s-result-sort-select_3")
         customer_review.click()
 
         # add things to cart and checkout function
-        self.go_to_cart = web.find_element_by_id("nav-cart-count-container")
-        self.add_to_cart = web.find_element_by_id("add-to-cart-button")
-        self.proceed_to_checkout = web.find_element_by_id(
+        self.go_to_cart = chr_driver.find_element_by_id(
+            "nav-cart-count-container")
+        self.add_to_cart = chr_driver.find_element_by_id("add-to-cart-button")
+        self.proceed_to_checkout = chr_driver.find_element_by_id(
             "proceed-to-checkout-action")
-        self.place_your_order = web.find_elements_by_class_name(
+        self.place_your_order = chr_driver.find_elements_by_class_name(
             "a-button-text place-your-order-button")
 
         self.addOrCheck()
-
-        time.sleep(600)
 
     def ebay(self):
 
