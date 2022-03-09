@@ -280,9 +280,9 @@ class AutoSearch:
         if ans == 'yes':
             web = webdriver.Chrome()
             web.get("https://www.google.com/")
-            fill_in = web.find_element_by_xpath(
+            fill_in = web.find_element(
                 "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
-            fill_in.send_keys('ps5')#self.search)
+            fill_in.send_keys('ps5')  # self.search)
             self.autoType(Key.enter)
 
         elif ans == 'no':
