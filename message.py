@@ -25,8 +25,8 @@ class logIn:
         pass
 
     def loginConfSound(self):
-        print("Do you wanna to log in to this site")
-        loginConf = gtts.gTTS("Do you wanna to log in to this site")
+        print("Do you wanna to login?")
+        loginConf = gtts.gTTS("Do you wanna to login?")
         loginConf.save("Audio/loginConf.mp3")
         playsound("Audio/loginConf.mp3")
         os.remove("Audio/loginConf.mp3")
@@ -77,7 +77,7 @@ class AutoSearch:
 
     def addToCart(self):
         atc = gtts.gTTS(
-            "Do you want to add this product to the cart? Please say yes or no after the beep")
+            "Do you want to add it to cart?")
         atc.save("Audio/atc.mp3")
         playsound("Audio/atc.mp3")
         os.remove("Audio/atc.mp3")
