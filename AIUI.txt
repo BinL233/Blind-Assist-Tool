@@ -1,0 +1,22 @@
+from tkinter import *
+root = Tk()
+
+root.title("Blind Assist Tool")
+root.resizable(False,False)
+root.geometry('600x300+700+150')
+
+VoiceOver = Button(root, text = "Voice Over", padx = 20, pady = 20, fg = 'black')
+VoiceOver.pack()
+
+VoiceOver.place(x = 40, y = 50)
+Checkout = Button(root, text = "Checkout", padx = 20, pady = 20, fg = 'black')
+Checkout.pack()
+
+Checkout.place(x =250, y = 50)
+
+Help = Button(root, text = "More Info", padx = 20, pady = 20, fg = 'black')
+Help.pack()
+Help.place(x = 450, y = 50)
+
+root.title("Blind Assist Tool")
+root.mainloop()
