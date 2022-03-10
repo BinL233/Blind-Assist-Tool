@@ -16,4 +16,6 @@ Help.pack()
 root.geometry('600x300')
 Help.place(x = 450, y = 50)
 
+root.title("Blind Assist Tool")
 root.mainloop()
+
