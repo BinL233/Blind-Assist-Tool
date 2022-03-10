@@ -1,11 +1,16 @@
 import message
 import Record
 import os
+import gtts
+from playsound import playsound
+import keyboard
+import time
 
 
 def main():
     print("\nTell me the website after the beep")
     qSound = "Tell me the website after the beep"
+    AutoSearch = message.AutoSearch()
     AutoSearch.webSound(qSound)
     #browser = input("what website do you want to see(ebay or amazon)?")
     data = Record.recordAudio()
@@ -22,11 +27,19 @@ def main():
         main()
 
 
-if __name__ == '__main__':
+def start():
 
     # Install pyaudio wheel
     #os.system("pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl")
+    print("Please press space to start")
+    start = gtts.gTTS("Please press space to start")
+    start.save("Audio/start.mp3")
+    playsound("Audio/start.mp3")
+    os.remove("Audio/start.mp3")    
 
-    AutoSearch = message.AutoSearch()
+    if keyboard.read_key() == 'space':
+        time.sleep(2)
+        main() 
 
-    main()
+    else:
+        pass
