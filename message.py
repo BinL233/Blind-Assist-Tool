@@ -1,4 +1,5 @@
 from distutils.log import error
+from numpy import record
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -9,6 +10,7 @@ import Record
 from pynput.keyboard import Key, Controller
 import pyautogui
 from selenium.webdriver.chrome.options import Options
+import requests
 
 
 class WebCrawler:
@@ -16,8 +18,10 @@ class WebCrawler:
     def __init__(self):
         pass
 
-    def productTitle():
-        pass
+    def productTitle(search):
+        headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'}
+        url = 'www.amazon.com/s?k=' + search
+        resp = requests.get(url, headers = headers)
 
 
 class logIn:
@@ -308,7 +312,58 @@ class AutoSearch:
 
         else:
             self.error()
-            return recommand()
+            return self.recommand()
+
+    def productChoose(self):
+        print("\nWhich product you wanna see details?")
+        chooseD = gtts.gTTS("Which product you wanna see details?")
+        chooseD.save("Audio/chooseD.mp3")
+        playsound("Audio/chooseD.mp3")
+        os.remove("Audio/chooseD.mp3")
+
+        ans = Record.recordAudio()
+        ans = ans.rstrip()
+        print(ans)
+
+        if ans.isdigit() == True:
+            ans = int(ans)
+
+            if ans >= 1 and ans <= 10:
+                pass
+
+            elif ans > 10 or ans < 1:
+                print("\nMake sure the number between one to ten")
+                error2 = gtts.gTTS("Make sure the number between one to ten")
+                error2.save("Audio/error2.mp3")
+                playsound("Audio/error2.mp3")
+                os.remove("Audio/error2.mp3")
+                return self.productChoose()
+
+            else:
+                self.error()
+                return self.productChoose()
+
+        else:
+            self.error()
+            return self.productChoose()
+
+        fill_list = self.productTitle()
+        
+        button1 = self.chr_driver.find_element_by_xpath(fill_list[ans-1])
+        button1.click()
+
+
+
+    def productTitle(self):
+
+        fill_list = []
+        for x in range(2,11):
+            fill_in = self.chr_driver.find_element_by_xpath(
+                "/html/body/div[1]/div[2]/div[1]/div[1]/div/span[3]/div[2]/div[" + str(x) + "]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/h2/a/span").get_attribute('textContent')
+            fill_list.append(fill_in)
+
+        
+        return fill_list
 
     def amazon(self):
         self.elementSearch()
@@ -316,12 +371,12 @@ class AutoSearch:
         driver_path = "chromedriver.exe"
         chr_options = Options()
         chr_options.add_experimental_option("detach", True)
-        chr_driver = webdriver.Chrome(driver_path, options=chr_options)
-        chr_driver.get("https://www.amazon.com/")
+        self.chr_driver = webdriver.Chrome(driver_path, options=chr_options)
+        self.chr_driver.get("https://www.amazon.com/")
 
         # If the user wants to login first
         if login.loginConf == True:
-            log_in = chr_driver.find_element_by_id("nav-link-accountList")
+            log_in = self.chr_driver.find_element_by_id("nav-link-accountList")
             log_in.click()
             time.sleep(1)
         # the audio said "You are ready to log in, please click enter after you done
@@ -329,36 +384,38 @@ class AutoSearch:
 
         x = 500
         while x < 4500:
-            chr_driver.execute_script("window.scrollTo(0," + str(x) + ")")
+            self.chr_driver.execute_script("window.scrollTo(0," + str(x) + ")")
             x += 100
             time.sleep(0.05)
 
-        fill_in = chr_driver.find_element_by_xpath(
+        fill_in = self.chr_driver.find_element_by_xpath(
             "/html/body/div[1]/header/div/div[1]/div[2]/div/form/div[2]/div[1]/input")
         fill_in.send_keys(self.search)
         time.sleep(1)
-        button = chr_driver.find_element_by_id("nav-search-submit-button")
+        button = self.chr_driver.find_element_by_id("nav-search-submit-button")
         button.click()
 
         # Search success audio
         self.searchSuccess()
 
+        self.productChoose()
+
         self.recommand()
 
-        sort = chr_driver.find_element_by_id("a-autoid-0-announce")
+        sort = self.chr_driver.find_element_by_id("a-autoid-0-announce")
         sort.click()
         time.sleep(1)
-        customer_review = chr_driver.find_element_by_id(
+        customer_review = self.chr_driver.find_element_by_id(
             "s-result-sort-select_3")
         customer_review.click()
 
         # add things to cart and checkout function
-        self.go_to_cart = chr_driver.find_element_by_id(
+        self.go_to_cart = self.chr_driver.find_element_by_id(
             "nav-cart-count-container")
-        self.add_to_cart = chr_driver.find_element_by_id("add-to-cart-button")
-        self.proceed_to_checkout = chr_driver.find_element_by_id(
+        self.add_to_cart = self.chr_driver.find_element_by_id("add-to-cart-button")
+        self.proceed_to_checkout = self.chr_driver.find_element_by_id(
             "proceed-to-checkout-action")
-        self.place_your_order = chr_driver.find_elements_by_class_name(
+        self.place_your_order = self.chr_driver.find_elements_by_class_name(
             "a-button-text place-your-order-button")
 
         self.addOrCheck()
