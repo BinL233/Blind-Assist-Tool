@@ -10,6 +10,7 @@ import Record
 from pynput.keyboard import Key, Controller
 import pyautogui
 from selenium.webdriver.chrome.options import Options
+import selenium.webdriver.support.ui as ui
 import requests
 
 
@@ -384,14 +385,14 @@ class AutoSearch:
         fill_in = chr_driver.find_element_by_xpath(
             "/html/body/div[1]/header/div/div[1]/div[2]/div/form/div[2]/div[1]/input")
         fill_in.send_keys(self.search)
-        time.sleep(0.3)
+        time.sleep(1)
         button = chr_driver.find_element_by_id("nav-search-submit-button")
         button.click()
 
         # Search success audio
         self.searchSuccess()
-
-        fill_list = chr_driver_search.find_element_by_class_name("a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
+        wait = ui.WebDriverWait(chr_driver_search,5)
+        fill_list = chr_driver_search.find_element_by_css_selector("a.a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
 
         print(fill_list)
 
