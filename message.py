@@ -373,6 +373,7 @@ class AutoSearch:
         chr_options.add_experimental_option("detach", True)
         chr_driver = webdriver.Chrome(driver_path, options=chr_options)
         chr_driver.get("https://www.amazon.com/")
+        chr_driver.maximize_window()
 
         # If the user wants to login first
         if login.loginConf == True:
@@ -380,8 +381,6 @@ class AutoSearch:
             log_in.click()
         # the audio said "You are ready to log in, please click enter after you done
         # At time time we will have a feature that it says what the user input is
-
-
 
 
         fill_in = chr_driver.find_element_by_xpath(
@@ -394,14 +393,14 @@ class AutoSearch:
         # Search success audio
         self.searchSuccess()
 
-        fill_list = chr_driver.find_element_by_xpath('//*[@id="search"]/div[1]/div[1]/div/span[3]/div[2]/div[3]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/h2/a')
-
-        print(fill_list)
+        chr_driver.implicitly_wait(5)
 
         ans = self.productChoose()
         
-        button1 = chr_driver.find_element_by_xpath(fill_list[ans-1])
+        button1 = chr_driver.find_element_by_xpath('(//*[@class="a-link-normal"])[' + str(ans) + ']')
         button1.click()
+
+
 
 
         self.recommand()
