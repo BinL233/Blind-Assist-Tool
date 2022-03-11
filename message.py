@@ -323,7 +323,6 @@ class AutoSearch:
 
         ans = Record.recordAudio()
         ans = ans.rstrip()
-        print(ans)
 
         if ans.isdigit() == True:
             ans = int(ans)
@@ -347,21 +346,19 @@ class AutoSearch:
             self.error()
             return self.productChoose()
 
-        fill_list = self.productTitle()
-        
-        button1 = self.chr_driver.find_element_by_xpath(fill_list[ans-1])
-        button1.click()
+        return ans
 
 
 
+
+    '''
     def productTitle(self):
-        fill_list = []
-        for x in range(2,11):
-            fill_in = self.chr_driver.find_element_by_xpath(
-                "/html/body/div[1]/div[2]/div[1]/div[1]/div/span[3]/div[2]/div[" + str(x) + "]/div/div/div/div/div/div[2]/div/div/div[1]/h2/a")
-            fill_list.append(fill_in)
+        fill_list = chr_driver.find_element_by_class_name("a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
+
+        print(fill_list)
         
         return fill_list
+    '''
 
     def amazon(self):
         self.elementSearch()
@@ -369,51 +366,56 @@ class AutoSearch:
         driver_path = "chromedriver.exe"
         chr_options = Options()
         chr_options.add_experimental_option("detach", True)
-        self.chr_driver = webdriver.Chrome(driver_path, options=chr_options)
-        self.chr_driver.get("https://www.amazon.com/")
+        chr_driver = webdriver.Chrome(driver_path, options=chr_options)
+        chr_driver.get("https://www.amazon.com/")
 
         # If the user wants to login first
         if login.loginConf == True:
-            log_in = self.chr_driver.find_element_by_id("nav-link-accountList")
+            log_in = chr_driver.find_element_by_id("nav-link-accountList")
             log_in.click()
-            time.sleep(1)
         # the audio said "You are ready to log in, please click enter after you done
         # At time time we will have a feature that it says what the user input is
 
-        x = 500
-        while x < 4500:
-            self.chr_driver.execute_script("window.scrollTo(0," + str(x) + ")")
-            x += 100
-            time.sleep(0.05)
+        chr_driver_search = webdriver.Chrome(driver_path, options=chr_options)
+        chr_driver_search.get("https://www.amazon.com/s?k=" + self.search)
+        print("https://www.amazon.com/s?k=" + self.search)
 
-        fill_in = self.chr_driver.find_element_by_xpath(
+
+        fill_in = chr_driver.find_element_by_xpath(
             "/html/body/div[1]/header/div/div[1]/div[2]/div/form/div[2]/div[1]/input")
         fill_in.send_keys(self.search)
-        time.sleep(1)
-        button = self.chr_driver.find_element_by_id("nav-search-submit-button")
+        time.sleep(0.3)
+        button = chr_driver.find_element_by_id("nav-search-submit-button")
         button.click()
 
         # Search success audio
         self.searchSuccess()
 
-        self.productChoose()
+        fill_list = chr_driver_search.find_element_by_class_name("a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
+
+        print(fill_list)
+
+        ans = self.productChoose()
+        
+        button1 = chr_driver_search.find_element_by_class_name(fill_list[ans-1])
+        button1.click()
 
         self.recommand()
 
-        sort = self.chr_driver.find_element_by_id("a-autoid-0-announce")
+        sort = chr_driver.find_element_by_id("a-autoid-0-announce")
         sort.click()
         time.sleep(1)
-        customer_review = self.chr_driver.find_element_by_id(
+        customer_review = chr_driver.find_element_by_id(
             "s-result-sort-select_3")
         customer_review.click()
 
         # add things to cart and checkout function
-        self.go_to_cart = self.chr_driver.find_element_by_id(
+        self.go_to_cart = chr_driver.find_element_by_id(
             "nav-cart-count-container")
-        self.add_to_cart = self.chr_driver.find_element_by_id("add-to-cart-button")
-        self.proceed_to_checkout = self.chr_driver.find_element_by_id(
+        self.add_to_cart = chr_driver.find_element_by_id("add-to-cart-button")
+        self.proceed_to_checkout = chr_driver.find_element_by_id(
             "proceed-to-checkout-action")
-        self.place_your_order = self.chr_driver.find_elements_by_class_name(
+        self.place_your_order = chr_driver.find_elements_by_class_name(
             "a-button-text place-your-order-button")
 
         self.addOrCheck()

@@ -8,7 +8,7 @@ API_KEY = credential['API_KEY']
 ENDPOINT = credential['ENDPOINT']
 cv_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(API_KEY))
 
-img_url1 = 'https://m.media-amazon.com/images/I/619BkvKW35L._SL1500_.jpg'
+img_url1 = 'https://m.media-amazon.com/images/I/61NcNDW3SgL._AC_SL1500_.jpg'
 
 
 description = cv_client.describe_image(img_url1)
