@@ -20,9 +20,13 @@ class WebCrawler:
         pass
 
     def productTitle(search):
-        headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'}
-        url = 'www.amazon.com/s?k=' + search
-        resp = requests.get(url, headers = headers)
+
+            headers = {'User-Agent' : 'Mozilla/5.0'}
+            url = 'http://www.amazon.com/s?k=' + search
+            resp = requests.get(url, headers = headers)
+            resp.encoding
+            return resp
+
 
 
 class logIn:
@@ -377,9 +381,7 @@ class AutoSearch:
         # the audio said "You are ready to log in, please click enter after you done
         # At time time we will have a feature that it says what the user input is
 
-        chr_driver_search = webdriver.Chrome(driver_path, options=chr_options)
-        chr_driver_search.get("https://www.amazon.com/s?k=" + self.search)
-        print("https://www.amazon.com/s?k=" + self.search)
+
 
 
         fill_in = chr_driver.find_element_by_xpath(
@@ -391,15 +393,16 @@ class AutoSearch:
 
         # Search success audio
         self.searchSuccess()
-        wait = ui.WebDriverWait(chr_driver_search,5)
-        fill_list = chr_driver_search.find_element_by_css_selector("a.a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
+
+        fill_list = chr_driver.find_element_by_xpath('//*[@id="search"]/div[1]/div[1]/div/span[3]/div[2]/div[3]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/h2/a')
 
         print(fill_list)
 
         ans = self.productChoose()
         
-        button1 = chr_driver_search.find_element_by_class_name(fill_list[ans-1])
+        button1 = chr_driver.find_element_by_xpath(fill_list[ans-1])
         button1.click()
+
 
         self.recommand()
 
