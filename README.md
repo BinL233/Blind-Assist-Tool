@@ -8,3 +8,4 @@ _Building now_
 2. Sound recognition.
 3. Voice broadcast.
 4. Automatically enter values.
+5. Automatically cite/element/icon detection
