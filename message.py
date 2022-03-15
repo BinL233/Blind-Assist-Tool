@@ -444,11 +444,11 @@ class AutoSearch:
         go_to_cart.click()
         go_to_checkout = chr_driver.find_elements_by_class_name(
             "cartsummary-cta")
+        go_to_checkout.click()
 
         # Search success audio
         self.searchSuccess()
         chr_driver.implicitly_wait(5)
-        
 
     def target(self):
 
