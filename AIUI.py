@@ -1,13 +1,53 @@
 from tkinter import *
 import os
+import tkinter
 import tkinter.font as font
 import main
+import message
 
+'''
+class Display(tkinter.Frame):
+    def __init__(self):
+       tk.Frame.__init__(self)
+       self.doIt = tk.Button(self,text="Start", command=self.start, background = 'black', fg='white')
+       self.doIt.pack()
+
+       self.output = tk.Text(self, width=100, height=15, background = 'black', fg='white')
+       self.output.pack(side=tk.LEFT)
+
+       self.scrollbar = tk.Scrollbar(self, orient="vertical", command = self.output.yview)
+       self.scrollbar.pack(side=tk.RIGHT, fill="y")
+
+       self.output['yscrollcommand'] = self.scrollbar.set
+
+       self.count = 1
+       self.configure(background='black')
+       self.pack()
+
+
+    def start(self):
+        if self.count < 1000:
+            self.write(str(self.count) + '\n')
+            print (self.count)
+            self.count += 1
+            self.after(2000, self.start)
+
+
+    def write(self, txt):
+        self.output.insert(tk.END,str(txt))
+        self.update_idletasks()
+'''
 
 def start():
+    x = main.start()
+    write(x)
 
-    main.start()
+def func(event):
+    start()
 
+def write(txt):
+    output.insert(tkinter.END,str(txt))
+    root.update_idletasks()
 
 root = Tk()
 root.geometry('600x320')
@@ -31,9 +71,29 @@ label2.pack(pady=50)
 frame1 = Frame(root)
 frame1.pack(pady=20)
 
-ft2 = font.Font(family='Microsoft yahei', size=17)
-button1 = Button(root, text='Voice Over',
-                 bg='#F7DFDF', command=start, font=ft2)
-button1.place(x=110, y=135, width=380, height=140)
+output = tkinter.Text(width=100, height=15, background = 'black', fg='white')
+output.place(x=110, y=135, width=380, height=140)
+
+scrollbar = Scrollbar(orient="vertical", command = output.yview)
+scrollbar.place(x=110, y=135, width=380, height=140)
+
+output['yscrollcommand'] = scrollbar.set
+
+
+
+
+AIUIS = message.AIUI()
+AIUIS.start()
+
+root.bind("<Key>",func)
+
+
+
+
+#ft2 = font.Font(family='Microsoft yahei', size=17)
+#button1 = Button(root, text='Voice Over',
+                 #bg='#F7DFDF', command=start, font=ft2)
+#button1.place(x=110, y=135, width=380, height=140)
+
 
 root.mainloop()

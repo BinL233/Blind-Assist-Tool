@@ -28,6 +28,17 @@ class WebCrawler:
         resp.encoding
         return resp
 
+class AIUI:
+    def __init__(self):
+        pass
+
+    def start(self):
+        print("\nPlease press any key to start")
+        AIUIS = gtts.gTTS("Please press any key to start")
+        AIUIS.save("Audio/AIUIS.mp3")
+        playsound("Audio/AIUIS.mp3")
+        os.remove("Audio/AIUIS.mp3")
+
 
 class logIn:
 
@@ -459,6 +470,15 @@ class AutoSearch:
         self.searchSuccess(self.search)
         chr_driver.implicitly_wait(5)
 
+        all_titles = []
+
+        all_items = chr_driver.find_elements_by_xpath('//h3[@class="s-item__title"]')
+
+        for item in all_items:
+            item1 = item.text.strip()
+            print('title:', item1)
+            all_titles.append(item1)
+
         ans = self.productChoose()
 
         # chr_driver.find_element_by_xpath(
@@ -470,11 +490,8 @@ class AutoSearch:
 
         self.searchSuccess('Product')
 
-        title = chr_driver.find_element_by_xpath(
-            '(//*[@class="ux-textspans"])')
 
-        self.productTitle(title)
-
+        self.productTitle(all_titles[ans])
         url = chr_driver.find_element_by_xpath(
             '(//*[@id="icImg"])')
 

@@ -1,12 +1,38 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-import selenium.webdriver.support.ui as ui
-from selenium.webdriver.support.ui import WebDriverWait
+import tkinter as tk
+import time
+import sys
 
-driver_path = "chromedriver.exe"
-chr_driver = webdriver.Chrome(driver_path)
-chr_driver.get("https://www.google.com/search?q=111")
-chr_driver.maximize_window()
-chr_driver.implicitly_wait(5)
-fill_list = chr_driver.find_element_by_class_name('h3.LC20lb MBeuO DKV0Md').click()
+class Display(tk.Frame):
+    def __init__(self):
+       tk.Frame.__init__(self)
+       self.doIt = tk.Button(self,text="Start", command=self.start, background = 'black', fg='white')
+       self.doIt.pack()
+
+       self.output = tk.Text(self, width=100, height=15, background = 'black', fg='white')
+       self.output.pack(side=tk.LEFT)
+
+       self.scrollbar = tk.Scrollbar(self, orient="vertical", command = self.output.yview)
+       self.scrollbar.pack(side=tk.RIGHT, fill="y")
+
+       self.output['yscrollcommand'] = self.scrollbar.set
+
+       self.count = 1
+       self.configure(background='black')
+       self.pack()
+
+
+    def start(self):
+        if self.count < 1000:
+            self.write(str(self.count) + '\n')
+            print (self.count)
+            self.count += 1
+            self.after(2000, self.start)
+
+
+    def write(self, txt):
+        self.output.insert(tk.END,str(txt))
+        self.update_idletasks()
+
+
+if __name__ == '__main__':
+    Display().mainloop()
