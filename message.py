@@ -21,12 +21,11 @@ class WebCrawler:
 
     def productTitle(search):
 
-            headers = {'User-Agent' : 'Mozilla/5.0'}
-            url = 'http://www.amazon.com/s?k=' + search
-            resp = requests.get(url, headers = headers)
-            resp.encoding
-            return resp
-
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        url = 'http://www.amazon.com/s?k=' + search
+        resp = requests.get(url, headers=headers)
+        resp.encoding
+        return resp
 
 
 class logIn:
@@ -307,6 +306,8 @@ class AutoSearch:
                 "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
             fill_in.send_keys(self.search)
             self.autoType(Key.enter)
+            Reconnmad_list = chr_driver.find_elements_by_class_name("EyxGV")
+            Reconnmad_list.click()
 
         elif ans == 'no':
             print("\nOkay")
@@ -353,9 +354,6 @@ class AutoSearch:
 
         return ans
 
-
-
-
     '''
     def productTitle(self):
         fill_list = chr_driver.find_element_by_class_name("a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
@@ -382,7 +380,6 @@ class AutoSearch:
         # the audio said "You are ready to log in, please click enter after you done
         # At time time we will have a feature that it says what the user input is
 
-
         fill_in = chr_driver.find_element_by_xpath(
             "/html/body/div[1]/header/div/div[1]/div[2]/div/form/div[2]/div[1]/input")
         fill_in.send_keys(self.search)
@@ -396,12 +393,10 @@ class AutoSearch:
         chr_driver.implicitly_wait(5)
 
         ans = self.productChoose()
-        
-        button1 = chr_driver.find_element_by_xpath('(//*[@class="a-link-normal"])[' + str(ans) + ']')
+
+        button1 = chr_driver.find_element_by_xpath(
+            '(//*[@class="a-link-normal"])[' + str(ans) + ']')
         button1.click()
-
-
-
 
         self.recommand()
 
@@ -427,23 +422,31 @@ class AutoSearch:
 
         self.elementSearch()
 
-        web = webdriver.Chrome()
-        web.get("https://www.ebay.com/")
-        x = 500
-        while x < 4500:
-            web.execute_script("window.scrollTo(0," + str(x) + ")")
-            x += 100
-            time.sleep(0.05)
-
-        fill_in = web.find_element_by_xpath(
+        driver_path = "chromedriver.exe"
+        chr_options = Options()
+        chr_options.add_experimental_option("detach", True)
+        chr_driver = webdriver.Chrome(driver_path, options=chr_options)
+        chr_driver.get("https://www.ebay.com/")
+        chr_driver.maximize_window()
+        fill_in = chr_driver.find_element_by_xpath(
             "/html/body/header/table/tbody/tr/td[5]/form/table/tbody/tr/td[1]/div[1]/div/input[1]")
         fill_in.send_keys(self.search)
-        button = web.find_element_by_id("gh-btn")
+        button = chr_driver.find_element_by_id("gh-btn")
         button.click()
+
+        # add it to cart function
+        is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
+        is_cart.click()
+        # above is to ask the user if they want to add to cart
+
+        # under is to ask the user if they want to checkout
+        go_to_cart = chr_driver.find_element_by_id("gh-cart-n")
+        go_to_cart.click()
+        go_to_checkout = chr_driver.find_elements_by_class_name(
+            "cartsummary-cta")
 
         # Search success audio
         self.searchSuccess()
-        time.sleep(600)
 
     def target(self):
 
