@@ -471,7 +471,7 @@ class AutoSearch:
         self.searchSuccess('Product')
 
         title = chr_driver.find_element_by_xpath(
-            '(//*[@class="s-item__text"])[' + str(ans) + ']')
+            '(//*[@class="ux-textspans ux-textspans--BOLD"])')
 
         self.productTitle(title)
 
