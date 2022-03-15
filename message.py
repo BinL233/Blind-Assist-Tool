@@ -72,7 +72,6 @@ class AutoSearch:
         image.save("Audio/image.mp3")
         playsound("Audio/image.mp3")
         os.remove("Audio/image.mp3")
-        
 
     def autoType(self, input):
         keyboard = Controller()
@@ -112,6 +111,23 @@ class AutoSearch:
         else:
             self.error()
             return self.addToCart()
+    def go_back_ebay(self, previous):
+        print("\nDo you wanna go back?")
+        goBack = gtts.gTTS("Do you wanna go back?")
+        goBack.save("Audio/goBack.mp3")
+        playsound("Audio/goBack.mp3")
+        os.remove("Audio/goBack.mp3")
+
+        ans = Record.recordAudio()
+        if ans == "Yes":
+            return "https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1312&_nkw="+str(previous)+"&_sacat=0"
+
+        elif ans == "No":
+            pass
+
+        else:
+            self.error()
+            return self.go_back_ebay()
 
     def addToCartScs(self):
         self.searchSuccess()
@@ -360,14 +376,12 @@ class AutoSearch:
 
         return ans
 
-
     def productTitle(self, title):
         print("\nThe title of product is " + title)
         prodtitle = gtts.gTTS("The title of product is " + title)
         prodtitle.save("Audio/prodtitle.mp3")
         playsound("Audio/prodtitle.mp3")
         os.remove("Audio/error2.mp3")
-
 
     def amazon(self):
         self.elementSearch()
@@ -432,7 +446,8 @@ class AutoSearch:
         chr_options = Options()
         chr_options.add_experimental_option("detach", True)
         chr_driver = webdriver.Chrome(driver_path, options=chr_options)
-        chr_driver.get("https://www.ebay.com/")
+        chr_driver.get(
+            "https://www.ebay.com/")
         chr_driver.maximize_window()
         fill_in = chr_driver.find_element_by_xpath(
             "/html/body/header/table/tbody/tr/td[5]/form/table/tbody/tr/td[1]/div[1]/div/input[1]")
@@ -446,7 +461,7 @@ class AutoSearch:
 
         ans = self.productChoose()
 
-        #chr_driver.find_element_by_xpath(
+        # chr_driver.find_element_by_xpath(
         #    '(//*[@class="s-item__text"])[' + str(ans) + ']')
 
         button1 = chr_driver.find_element_by_xpath(
@@ -461,12 +476,14 @@ class AutoSearch:
         self.productTitle(title)
 
         url = chr_driver.find_element_by_xpath(
-            '(//*[@id="icImg"])')  
+            '(//*[@id="icImg"])')
 
         self.imageDetection(url)
 
+        self.go_back_ebay(self.search)
+
         if self.goToCart() == True:
-        # add it to cart function
+            # add it to cart function
             is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
             is_cart.click()
         # above is to ask the user if they want to add to cart
@@ -477,8 +494,7 @@ class AutoSearch:
             go_to_cart.click()
             go_to_checkout = chr_driver.find_elements_by_class_name(
                 "cartsummary-cta")
-            go_to_checkout.click() 
-
+            go_to_checkout.click()
 
 
     def target(self):
