@@ -94,7 +94,7 @@ class AutoSearch:
 
         ans = Record.recordAudio()
         if ans == "Yes":  # the user wants to add to cart:
-            self.add_to_cart.click()
+            return True
 
         elif ans == "No":
             self.cancelScs()
@@ -122,11 +122,7 @@ class AutoSearch:
         ans = Record.recordAudio()
         if ans == "Yes":
             if self.checkOutConfirm() == True:
-                self.go_to_cart.click()
-                time.sleep(0.5)
-                self.proceed_to_checkout.click()
-                time.sleep(0.5)
-                self.place_your_order.click()
+                return True
 
             else:
                 self.cancelScs()
@@ -278,11 +274,11 @@ class AutoSearch:
                 playsound("Audio/ann4.mp3")
                 os.remove("Audio/ann4.mp3")
 
-    def searchSuccess(self):
-        output = "\n" + str(self.search) + " search success!"
+    def searchSuccess(self, search):
+        output = "\n" + str(search) + " search success!"
         print(output)
         playsound("Audio/Success.mp3")
-        search_success = gtts.gTTS(self.search + " search success!")
+        search_success = gtts.gTTS(search + " search success!")
         search_success.save("Audio/search_success.mp3")
         playsound("Audio/search_success.mp3")
         os.remove("Audio/search_success.mp3")
@@ -354,14 +350,14 @@ class AutoSearch:
 
         return ans
 
-    '''
-    def productTitle(self):
-        fill_list = chr_driver.find_element_by_class_name("a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal")
 
-        print(fill_list)
-        
-        return fill_list
-    '''
+    def productTitle(self, title):
+        print("\nThe title of product is " + title)
+        prodtitle = gtts.gTTS("The title of product is " + title)
+        prodtitle.save("Audio/prodtitle.mp3")
+        playsound("Audio/prodtitle.mp3")
+        os.remove("Audio/error2.mp3")
+
 
     def amazon(self):
         self.elementSearch()
@@ -434,21 +430,41 @@ class AutoSearch:
         button = chr_driver.find_element_by_id("gh-btn")
         button.click()
 
+        # Search success audio
+        self.searchSuccess(self.search)
+        chr_driver.implicitly_wait(5)
+
+        ans = self.productChoose()
+
+        #chr_driver.find_element_by_xpath(
+        #    '(//*[@class="s-item__text"])[' + str(ans) + ']')
+
+        button1 = chr_driver.find_element_by_xpath(
+            '(//*[@class="s-item__link"])[' + str(ans + 1) + ']')
+        button1.click()
+
+        self.searchSuccess('Product')
+
+        title = chr_driver.find_element_by_xpath(
+            '(//*[@class="s-item__text"])[' + str(ans) + ']')
+
+        self.productTitle(title)
+
+        if self.goToCart() == True:
         # add it to cart function
-        is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
-        is_cart.click()
+            is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
+            is_cart.click()
         # above is to ask the user if they want to add to cart
 
         # under is to ask the user if they want to checkout
-        go_to_cart = chr_driver.find_element_by_id("gh-cart-n")
-        go_to_cart.click()
-        go_to_checkout = chr_driver.find_elements_by_class_name(
-            "cartsummary-cta")
-        go_to_checkout.click()
+        if self.checkOut == True:
+            go_to_cart = chr_driver.find_element_by_id("gh-cart-n")
+            go_to_cart.click()
+            go_to_checkout = chr_driver.find_elements_by_class_name(
+                "cartsummary-cta")
+            go_to_checkout.click() 
 
-        # Search success audio
-        self.searchSuccess()
-        chr_driver.implicitly_wait(5)
+
 
     def target(self):
 

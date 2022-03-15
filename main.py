@@ -27,7 +27,7 @@ def main():
         main()
 
 
-#def start():
+def start():
 
     # Install pyaudio wheel
     #os.system("pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl")
@@ -47,5 +47,11 @@ def main():
 
     '''
 
+    print('If you want to speak, please press any key for speaking.')
+    speak = gtts.gTTS('If you want to speak, please press any key for speaking')
+    speak.save("Audio/speak.mp3")
+    playsound("Audio/speak.mp3")
+    os.remove("Audio/speak.mp3")
 
-main()
+
+    main()
