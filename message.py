@@ -12,6 +12,7 @@ import pyautogui
 from selenium.webdriver.chrome.options import Options
 import selenium.webdriver.support.ui as ui
 import requests
+import ImageDescription
 
 
 class WebCrawler:
@@ -63,6 +64,15 @@ class AutoSearch:
 
     def __init__(self):
         self.search = None
+
+    def imageDetection(self, url):
+        output = ImageDescription.detection(url)
+        print(output)
+        image = gtts.gTTS(output)
+        image.save("Audio/image.mp3")
+        playsound("Audio/image.mp3")
+        os.remove("Audio/image.mp3")
+        
 
     def autoType(self, input):
         keyboard = Controller()
@@ -449,6 +459,11 @@ class AutoSearch:
             '(//*[@class="s-item__text"])[' + str(ans) + ']')
 
         self.productTitle(title)
+
+        url = chr_driver.find_element_by_xpath(
+            '(//*[@id="icImg"])')  
+
+        self.imageDetection(url)
 
         if self.goToCart() == True:
         # add it to cart function
