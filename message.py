@@ -447,6 +447,8 @@ class AutoSearch:
 
         # Search success audio
         self.searchSuccess()
+        chr_driver.implicitly_wait(5)
+        
 
     def target(self):
 
