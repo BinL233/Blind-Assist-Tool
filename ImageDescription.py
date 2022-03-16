@@ -8,11 +8,9 @@ def detection(url):
     ENDPOINT = credential['ENDPOINT']
     cv_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(API_KEY))
 
-    img_url1 = url
 
-
-    description = cv_client.describe_image(img_url1)
+    description = cv_client.describe_image(url)
 
 
     for caption in description.captions:
-        print(f"Image Description: {caption.text}")
+        return f"Image Description: {caption.text}"

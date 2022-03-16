@@ -138,7 +138,7 @@ class AutoSearch:
 
         else:
             self.error()
-            return self.go_back_ebay()
+            return self.go_back_ebay(self, previous)
 
     def addToCartScs(self):
         self.searchSuccess()
@@ -389,10 +389,17 @@ class AutoSearch:
 
     def productTitle(self, title):
         print("\nThe title of product is " + title)
-        prodtitle = gtts.gTTS("The title of product is " + title)
+        prodtitle = gtts.gTTS("The title of product is, " + title)
         prodtitle.save("Audio/prodtitle.mp3")
         playsound("Audio/prodtitle.mp3")
-        os.remove("Audio/error2.mp3")
+        os.remove("Audio/prodtitle.mp3")
+
+    def productPrice(self, price):
+        print("\nThe price of product is " + price)
+        prodprice = gtts.gTTS("The price of product is, " + price)
+        prodprice.save("Audio/prodprice.mp3")
+        playsound("Audio/prodprice.mp3")
+        os.remove("Audio/prodprice.mp3")
 
     def amazon(self):
         self.elementSearch()
@@ -470,16 +477,18 @@ class AutoSearch:
         self.searchSuccess(self.search)
         chr_driver.implicitly_wait(5)
 
-        all_titles = []
-
-        all_items = chr_driver.find_elements_by_xpath('//h3[@class="s-item__title"]')
-
-        for item in all_items:
-            item1 = item.text.strip()
-            print('title:', item1)
-            all_titles.append(item1)
-
         ans = self.productChoose()
+
+        image = chr_driver.find_elements_by_xpath('(//img[@class="s-item__image-img"])[' + str(ans+1) +']')
+        for x in image:
+            image = x.get_attribute("src")
+
+        title = chr_driver.find_elements_by_xpath('(//h3[@class="s-item__title"])[' + str(ans+1) + ']')
+        for x in title:
+            title = x.text.strip()
+        price = chr_driver.find_elements_by_xpath('(//span[@class="s-item__price"])[' + str(ans+1) +']')
+        for x in price:
+            price = x.text.strip()
 
         # chr_driver.find_element_by_xpath(
         #    '(//*[@class="s-item__text"])[' + str(ans) + ']')
@@ -491,11 +500,12 @@ class AutoSearch:
         self.searchSuccess('Product')
 
 
-        self.productTitle(all_titles[ans])
-        url = chr_driver.find_element_by_xpath(
-            '(//*[@id="icImg"])')
+        self.productTitle(title)
 
-        self.imageDetection(url)
+        self.productPrice(price)
+
+        self.imageDetection(image)
+        time.sleep(1)
 
         self.go_back_ebay(self.search)
 
