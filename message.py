@@ -113,10 +113,10 @@ class AutoSearch:
         os.remove("Audio/atc.mp3")
 
         ans = Record.recordAudio()
-        if ans == "Yes":  # the user wants to add to cart:
+        if ans == "yes":  # the user wants to add to cart:
             return True
 
-        elif ans == "No":
+        elif ans == "no":
             self.cancelScs()
 
         else:
@@ -130,15 +130,15 @@ class AutoSearch:
         os.remove("Audio/goBack.mp3")
 
         ans = Record.recordAudio()
-        if ans == "Yes":
+        if ans == "yes":
             return "https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1312&_nkw="+str(previous)+"&_sacat=0"
 
-        elif ans == "No":
+        elif ans == "no":
             pass
 
         else:
             self.error()
-            return self.go_back_ebay(self, previous)
+            return self.go_back_ebay(previous)
 
     def addToCartScs(self):
         self.searchSuccess()
@@ -157,14 +157,14 @@ class AutoSearch:
         os.remove("Audio/checkOut.mp3")
 
         ans = Record.recordAudio()
-        if ans == "Yes":
+        if ans == "yes":
             if self.checkOutConfirm() == True:
                 return True
 
             else:
                 self.cancelScs()
 
-        elif ans == "No":
+        elif ans == "no":
             self.cancelScs()
 
         else:
@@ -189,10 +189,10 @@ class AutoSearch:
 
         ans = Record.recordAudio()
 
-        if ans == "Yes":
+        if ans == "yes":
             return True
 
-        elif ans == "No":
+        elif ans == "no":
             return False
 
         else:
@@ -208,10 +208,10 @@ class AutoSearch:
         os.remove("Audio/goToCart.mp3")
 
         ans = Record.recordAudio()
-        if ans == "Yes":
+        if ans == "yes":
             self.go_to_cart.click()
 
-        elif ans == "No":
+        elif ans == "no":
             self.cancelScs()
 
         else:
@@ -509,7 +509,7 @@ class AutoSearch:
 
         self.go_back_ebay(self.search)
 
-        if self.goToCart() == True:
+        if self.addToCart() == True:
             # add it to cart function
             is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
             is_cart.click()
