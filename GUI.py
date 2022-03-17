@@ -22,12 +22,12 @@ root.geometry('600x320')
 root.resizable(False, False)
 root.title("Blind Assist Tool")
 
-path1 = os.path.abspath(__file__)
-path = os.path.dirname(path1)
+#path1 = os.path.abspath(__file__)
+#path = os.path.dirname(path1)
 
 canvas = Canvas(width=600, height=320, highlightthickness=0, borderwidth=0)
 canvas.place(x=0, y=0)
-Imagepath = str(path) + '/Images/background_600.png'
+Imagepath = r'Images\background_600.png'
 
 bg = PhotoImage(file=Imagepath)
 bgid = canvas.create_image(0, 0, image=bg, anchor='nw')
