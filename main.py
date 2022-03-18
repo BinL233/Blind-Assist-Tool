@@ -50,5 +50,4 @@ def start():
     playsound("Audio/speak.mp3")
     os.remove("Audio/speak.mp3")
 
-
-main()
+    main()

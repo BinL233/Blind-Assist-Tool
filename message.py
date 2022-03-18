@@ -462,7 +462,7 @@ class AutoSearch:
 
         self.elementSearch()
 
-        driver_path = "chromedriver.exe"
+        driver_path = "chromedriver"
         chr_options = Options()
         chr_options.add_experimental_option("detach", True)
         chr_driver = webdriver.Chrome(driver_path, options=chr_options)
@@ -514,12 +514,10 @@ class AutoSearch:
         self.go_back_ebay(self.search)
 
         if self.addToCart() == True:
-            # add it to cart function
-            is_cart = chr_driver.find_element_by_id("atcRedesignId_btn")
-            is_cart.click()
+            time.sleep(10000000000)
         # above is to ask the user if they want to add to cart
 
-        # under is to ask the user if they want to checkout
+        # under is to ask the user if they want to checkout 
         if self.checkOut == True:
             go_to_cart = chr_driver.find_element_by_id("gh-cart-n")
             go_to_cart.click()
