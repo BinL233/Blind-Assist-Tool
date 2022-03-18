@@ -28,6 +28,7 @@ class WebCrawler:
         resp.encoding
         return resp
 
+
 class AIUI:
     def __init__(self):
         pass
@@ -122,6 +123,7 @@ class AutoSearch:
         else:
             self.error()
             return self.addToCart()
+
     def go_back_ebay(self, previous):
         print("\nDo you wanna go back?")
         goBack = gtts.gTTS("Do you wanna go back?")
@@ -479,14 +481,17 @@ class AutoSearch:
 
         ans = self.productChoose()
 
-        image = chr_driver.find_elements_by_xpath('(//img[@class="s-item__image-img"])[' + str(ans+1) +']')
+        image = chr_driver.find_elements_by_xpath(
+            '(//img[@class="s-item__image-img"])[' + str(ans+1) + ']')
         for x in image:
             image = x.get_attribute("src")
 
-        title = chr_driver.find_elements_by_xpath('(//h3[@class="s-item__title"])[' + str(ans+1) + ']')
+        title = chr_driver.find_elements_by_xpath(
+            '(//h3[@class="s-item__title"])[' + str(ans+1) + ']')
         for x in title:
             title = x.text.strip()
-        price = chr_driver.find_elements_by_xpath('(//span[@class="s-item__price"])[' + str(ans+1) +']')
+        price = chr_driver.find_elements_by_xpath(
+            '(//span[@class="s-item__price"])[' + str(ans+1) + ']')
         for x in price:
             price = x.text.strip()
 
@@ -499,7 +504,6 @@ class AutoSearch:
 
         self.searchSuccess('Product')
 
-
         self.productTitle(title)
 
         self.productPrice(price)
@@ -511,7 +515,7 @@ class AutoSearch:
 
         if self.addToCart() == True:
             # add it to cart function
-            is_cart = chr_driver.find_element_by_id("isCartBtn_btn")
+            is_cart = chr_driver.find_element_by_id("atcRedesignId_btn")
             is_cart.click()
         # above is to ask the user if they want to add to cart
 
@@ -522,7 +526,6 @@ class AutoSearch:
             go_to_checkout = chr_driver.find_elements_by_class_name(
                 "cartsummary-cta")
             go_to_checkout.click()
-
 
     def target(self):
 
