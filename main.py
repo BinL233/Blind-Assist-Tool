@@ -30,10 +30,9 @@ def start():
     #os.system("pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl")
     #print("Please press space to start")
     #start = gtts.gTTS("Please press space to start")
-    #start.save("Audio/start.mp3")
-    #playsound("Audio/start.mp3")
-    #os.remove("Audio/start.mp3")    
-
+    # start.save("Audio/start.mp3")
+    # playsound("Audio/start.mp3")
+    # os.remove("Audio/start.mp3")
     '''
     if keyboard.read_key() == 'space':
         time.sleep(2)
@@ -45,10 +44,11 @@ def start():
     '''
 
     print('If you want to speak, please press any key for speaking.')
-    speak = gtts.gTTS('If you want to speak, please press any key for speaking')
+    speak = gtts.gTTS(
+        'If you want to speak, please press any key for speaking')
     speak.save("Audio/speak.mp3")
     playsound("Audio/speak.mp3")
     os.remove("Audio/speak.mp3")
 
 
-    main()
+main()
