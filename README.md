@@ -9,3 +9,5 @@ _Building now_
 3. Voice broadcast.
 4. Automatically enter values.
 5. Automatically cite/element/icon detection
+6. Image description.
+7. WebDriver.
